@@ -1,24 +1,100 @@
-.App {
-  text-align: center;
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background: #ccc;
+}
+
+.header {
+  margin: 0 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.characters {
+  margin: 2rem 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  row-gap: 1rem;
+}
+
+.character {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.8rem;
+}
+
+.character:hover {
+  cursor: pointer;
+
+  background-color: #ddd;
+}
+
+.character__img {
+  width: 10rem;
+  height: 10rem;
+}
+
+.character__img img {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}
+
+/* CHARACTER MODAL */
+
+.character__modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background: red;
+
+  width: 80rem;
+  height: 40rem;
+}
+
+.hidden {
+  display: none;
+}
+
+/* LOADING SPINNER */
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
   height: 80px;
 }
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.lds-dual-ring:after {
+  content: ' ';
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
 }
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
