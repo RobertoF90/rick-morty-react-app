@@ -1,6 +1,7 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import CharacterItem from './CharacterItem';
+import RickMortyContext from '../../context/RickMortyContext';
 
 import Modal from 'react-modal';
 
@@ -20,20 +21,19 @@ const customStyles = {
 };
 
 function Characters() {
-  const [characters, setCharacters] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { characters, loading, fetchCharacters } = useContext(RickMortyContext);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const [characterDetail, setCharacterDetail] = useState([]);
+  const [characterDetail, setCharacterDetail] = useState();
 
   // Open / Close modal
   const openModal = (id) => {
-    const filteredCharacter = characters.filter(
+    const [filteredCharacter] = characters.filter(
       (character) => character.id === id
     );
 
-    setCharacterDetail(...filteredCharacter);
+    setCharacterDetail(filteredCharacter);
     setModalIsOpen(true);
   };
 
@@ -43,13 +43,6 @@ function Characters() {
     fetchCharacters();
   }, []);
 
-  const fetchCharacters = async () => {
-    const response = await fetch(`https://rickandmortyapi.com/api/character`);
-
-    const data = await response.json();
-    setCharacters(data.results);
-    setLoading(false);
-  };
   if (!loading) {
     return (
       <div className="characters">
@@ -65,14 +58,16 @@ function Characters() {
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
         >
-          <ul>
-            <li>Name:{characterDetail.name}</li>
-            <li>Status:{characterDetail.status}</li>
-            <li>Species:{characterDetail.species}</li>
-            <li>Gender:{characterDetail.gender}</li>
-            <li>Origin:{characterDetail.origin.name}</li>
-            <li>Location:{characterDetail.location.name}</li>
-          </ul>
+          {characterDetail && (
+            <ul>
+              <li>Name:{characterDetail.name}</li>
+              <li>Status:{characterDetail.status}</li>
+              <li>Species:{characterDetail.species}</li>
+              <li>Gender:{characterDetail.gender}</li>
+              <li>Origin:{characterDetail.origin.name}</li>
+              <li>Location:{characterDetail.location.name}</li>
+            </ul>
+          )}
         </Modal>
       </div>
     );

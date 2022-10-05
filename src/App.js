@@ -4,17 +4,20 @@ import './App.css';
 
 import Navbar from './Components/Navbar';
 import Dashboard from './Components/Dashboard';
+import { RickMortyProvider } from './context/RickMortyContext';
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Dashboard />}></Route>
-        </Routes>
-      </div>
-    </Router>
+    <RickMortyProvider>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Dashboard />}></Route>
+          </Routes>
+        </div>
+      </Router>
+    </RickMortyProvider>
   );
 }
 

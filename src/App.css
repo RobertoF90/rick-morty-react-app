@@ -68,8 +68,11 @@ body {
   height: 40rem;
 }
 
-.hidden {
-  display: none;
+/* PAGINATION */
+
+.pagination {
+  margin: 0 auto;
+  display: flex;
 }
 
 /* LOADING SPINNER */
