@@ -6,10 +6,21 @@ const rickMortyReducer = (state, action) => {
         characters: action.payload,
         loading: false,
       };
+    case 'SET_MODAL_LOADING':
+      return {
+        ...state,
+        modalLoading: true,
+      };
     case 'SET_MODAL':
       return {
         ...state,
         modalIsOpen: action.payload,
+      };
+    case 'SET_EPISODE':
+      return {
+        ...state,
+        episodes: action.payload,
+        modalLoading: false,
       };
     case 'SET_CHARACTER_DETAIL':
       return {

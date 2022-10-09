@@ -3,14 +3,16 @@ import rickMortyReducer from './RickMortyReducer';
 
 const RickMortyContext = createContext();
 
-const API_URL = 'https://rickandmortyapi.com/api/character';
+const API_URL = 'https://rickandmortyapi.com/api/';
 
 export const RickMortyProvider = ({ children }) => {
   const initialState = {
     characters: [],
     characterDetail: null,
     bookmarks: [],
+    episodes: [],
     loading: true,
+    modalLoading: false,
     page: 1,
     modalIsOpen: false,
   };
@@ -19,9 +21,17 @@ export const RickMortyProvider = ({ children }) => {
 
   // MODAL
 
+  const setModalLoading = () => {
+    dispatch({
+      type: 'SET_MODAL_LOADING',
+    });
+  };
+
   // Open / Close modal
-  const openModal = (id) => {
-    setCharacterDetail(id);
+  const openModal = async (id) => {
+    await setCharacterDetail(id);
+    setModalLoading();
+    setEpisodes(id);
     dispatch({
       type: 'SET_MODAL',
       payload: true,
@@ -33,6 +43,26 @@ export const RickMortyProvider = ({ children }) => {
       type: 'SET_MODAL',
       payload: false,
     });
+
+  const setEpisodes = async (id) => {
+    let episodes = [];
+
+    const getCharacter = await fetch(`${API_URL}/character/${id}`);
+
+    const character = await getCharacter.json();
+
+    character.episode.forEach((ep) => {
+      return episodes.push(ep.split('/')[5]);
+    });
+    const response = await fetch(`${API_URL}/episode/${episodes.join(',')}`);
+
+    const results = await response.json();
+
+    dispatch({
+      type: 'SET_EPISODE',
+      payload: results,
+    });
+  };
 
   // BOOKMARKS
 
@@ -74,7 +104,7 @@ export const RickMortyProvider = ({ children }) => {
       });
     }
 
-    const response = await fetch(`${API_URL}?${params}`);
+    const response = await fetch(`${API_URL}/character/?${params}`);
 
     const { results } = await response.json();
     dispatch({
@@ -98,7 +128,7 @@ export const RickMortyProvider = ({ children }) => {
     let [character] = filterCharacter(id);
 
     if (!character) {
-      const response = await fetch(`${API_URL}/${id}`);
+      const response = await fetch(`${API_URL}/character/${id}`);
 
       character = await response.json();
     }
@@ -117,9 +147,12 @@ export const RickMortyProvider = ({ children }) => {
         characters: state.characters,
         loading: state.loading,
         fetchCharacters,
+        modalLoading: state.modalLoading,
         openModal,
         closeModal,
         modalIsOpen: state.modalIsOpen,
+        setEpisodes,
+        episodes: state.episodes,
         setCharacterDetail,
         characterDetail: state.characterDetail,
         bookmarks: state.bookmarks,

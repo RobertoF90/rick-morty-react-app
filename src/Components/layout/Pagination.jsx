@@ -4,7 +4,7 @@ import RickMortyContext from '../../context/RickMortyContext';
 
 function Pagination() {
   const { page, changePage } = useContext(RickMortyContext);
-  const { characters, fetchCharacters } = useContext(RickMortyContext);
+  const { loading, fetchCharacters } = useContext(RickMortyContext);
 
   const handlePageChange = (e) => {
     if (page > 1 || e.target.value > 0) {
@@ -13,17 +13,19 @@ function Pagination() {
     }
   };
 
-  return (
-    <div className="pagination">
-      <button className="btn" value={-1} onClick={handlePageChange}>
-        &larr;
-      </button>
-      <p>{page}</p>
-      <button className="btn" value={1} onClick={handlePageChange}>
-        &rarr;
-      </button>
-    </div>
-  );
+  if (!loading) {
+    return (
+      <div className="pagination">
+        <button className="btn" value={-1} onClick={handlePageChange}>
+          &larr;
+        </button>
+        <p>{page}</p>
+        <button className="btn" value={1} onClick={handlePageChange}>
+          &rarr;
+        </button>
+      </div>
+    );
+  }
 }
 
 export default Pagination;
