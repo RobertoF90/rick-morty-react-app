@@ -6,6 +6,26 @@ const rickMortyReducer = (state, action) => {
         characters: action.payload,
         loading: false,
       };
+    case 'SET_MODAL':
+      return {
+        ...state,
+        modalIsOpen: action.payload,
+      };
+    case 'SET_CHARACTER_DETAIL':
+      return {
+        ...state,
+        characterDetail: action.payload,
+      };
+    case 'ADD_BOOKMARK':
+      return {
+        ...state,
+        bookmarks: action.payload,
+      };
+    case 'REMOVE_BOOKMARK':
+      return {
+        ...state,
+        bookmarks: action.payload,
+      };
     case 'CHANGE_PAGE':
       return {
         ...state,

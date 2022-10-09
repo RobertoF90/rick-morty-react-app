@@ -1,12 +1,13 @@
 import React from 'react';
 import CharacterSearch from './characters/CharacterSearch';
+import Bookmark from './layout/Bookmark';
 
 function Navbar() {
   return (
-    <div className="header">
+    <div className="navbar">
       <h1>Rick & Morty Search APP</h1>
       <CharacterSearch />
-      <div>Favorite</div>
+      <Bookmark />
     </div>
   );
 }

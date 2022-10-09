@@ -1,10 +1,7 @@
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
@@ -12,15 +9,55 @@ html {
 }
 
 body {
-  background: #ccc;
+  background: #efe9aa;
 }
 
-.header {
-  margin: 0 2rem;
+.btn {
+  padding: 0.5rem 1rem;
+
+  border: none;
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  transition: all 0.05s;
+}
+
+/* NAVIGATION */
+.navbar {
+  margin: 2rem;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.search-input {
+  padding: 0.5rem 1rem;
+
+  border: none;
+  border-radius: 12px;
+
+  outline: none;
+}
+
+.btn--search {
+  position: relative;
+  right: 10%;
+
+  background: #edcd62;
+}
+
+.btn--search:hover {
+  transform: scale(1.2);
+}
+
+/* DASHBOARD */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
 }
 
 .characters {
@@ -31,21 +68,22 @@ body {
 }
 
 .character {
+  padding: 1rem;
   display: flex;
   align-items: center;
   gap: 1rem;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
 }
 
 .character:hover {
   cursor: pointer;
 
-  background-color: #ddd;
+  background-color: #f0df7e;
 }
 
 .character__img {
-  width: 10rem;
-  height: 10rem;
+  width: 7.5rem;
+  height: 7.5rem;
 }
 
 .character__img img {
@@ -71,13 +109,37 @@ body {
 /* PAGINATION */
 
 .pagination {
-  margin: 0 auto;
   display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* BOOKMARK */
+.bookmarks {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: absolute;
+  right: 1%;
+}
+
+.bookmarks .character__img {
+  width: 5rem;
+  height: 5rem;
+}
+
+.bookmarks .character__name {
+  font-size: 1.2rem;
 }
 
 /* LOADING SPINNER */
 
 .lds-dual-ring {
+  position: absolute;
+  left: 50%;
+  top: 25%;
+  transform: translate(-50%, -50%);
+
   display: inline-block;
   width: 80px;
   height: 80px;

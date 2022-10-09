@@ -7,7 +7,7 @@ function Pagination() {
   const { characters, fetchCharacters } = useContext(RickMortyContext);
 
   const handlePageChange = (e) => {
-    if (e.target.value > 0) {
+    if (page > 1 || e.target.value > 0) {
       changePage(+e.target.value);
       fetchCharacters();
     }
@@ -15,11 +15,11 @@ function Pagination() {
 
   return (
     <div className="pagination">
-      <button value={-1} onClick={handlePageChange}>
+      <button className="btn" value={-1} onClick={handlePageChange}>
         &larr;
       </button>
       <p>{page}</p>
-      <button value={1} onClick={handlePageChange}>
+      <button className="btn" value={1} onClick={handlePageChange}>
         &rarr;
       </button>
     </div>

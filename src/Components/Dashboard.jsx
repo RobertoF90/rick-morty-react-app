@@ -4,7 +4,7 @@ import Pagination from './layout/Pagination';
 
 function Dashboard() {
   return (
-    <div>
+    <div className="dashboard">
       <Characters />
 
       <Pagination />

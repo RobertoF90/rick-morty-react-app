@@ -4,7 +4,7 @@ import RickMortyContext from '../../context/RickMortyContext';
 
 function CharacterSearch() {
   const [text, setText] = useState('');
-  const { characters, fetchCharacters } = useContext(RickMortyContext);
+  const { fetchCharacters } = useContext(RickMortyContext);
 
   const handleChange = (e) => setText(e.target.value);
   const handleSubmit = (e) => {
@@ -19,12 +19,17 @@ function CharacterSearch() {
 
   return (
     <div>
-      <div>
-        <form onSubmit={handleSubmit}>
-          <input type="text" value={text} onChange={handleChange} />
-          <button type="submit">Search!</button>
-        </form>
-      </div>
+      <form onSubmit={handleSubmit}>
+        <input
+          className="search-input"
+          type="text"
+          value={text}
+          onChange={handleChange}
+        />
+        <button className="btn btn--search" type="submit">
+          Search!
+        </button>
+      </form>
     </div>
   );
 }
