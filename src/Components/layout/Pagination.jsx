@@ -16,11 +16,19 @@ function Pagination() {
   if (!loading) {
     return (
       <div className="pagination">
-        <button className="btn" value={-1} onClick={handlePageChange}>
+        <button
+          className="btn pagination__btn"
+          value={-1}
+          onClick={handlePageChange}
+        >
           &larr;
         </button>
         <p>{page}</p>
-        <button className="btn" value={1} onClick={handlePageChange}>
+        <button
+          className="btn pagination__btn"
+          value={1}
+          onClick={handlePageChange}
+        >
           &rarr;
         </button>
       </div>

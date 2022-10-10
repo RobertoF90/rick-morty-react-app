@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useContext } from 'react';
 import RickMortyContext from '../../context/RickMortyContext';
 import CharacterItem from '../characters/CharacterItem';
-import CharacterModal from '../CharacterModal';
+import CharacterModal from '../characters/CharacterModal';
 
 function Bookmark() {
   const [showBookmarks, setShowBookmarks] = useState(false);
@@ -10,7 +10,10 @@ function Bookmark() {
 
   return (
     <div>
-      <button className="btn" onClick={() => setShowBookmarks(!showBookmarks)}>
+      <button
+        className={`btn bookmarks__btn ${showBookmarks ? 'active' : ''}`}
+        onClick={() => setShowBookmarks(!showBookmarks)}
+      >
         Bookmarks
       </button>
 

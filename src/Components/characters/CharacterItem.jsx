@@ -1,6 +1,4 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
-
 import PropTypes from 'prop-types';
 
 function CharacterItem({ character: { name, image }, handleDetail }) {

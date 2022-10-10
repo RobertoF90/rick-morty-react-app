@@ -1,22 +1,18 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import React, { Component } from 'react';
-import './App.css';
+import React from 'react';
+import './css/app.css';
+import './css/queries.css';
 
-import Navbar from './Components/Navbar';
-import Dashboard from './Components/Dashboard';
+import Dashboard from './Components/layout/Dashboard';
+import Navbar from './Components/layout/Navbar';
 import { RickMortyProvider } from './context/RickMortyContext';
 
 function App() {
   return (
     <RickMortyProvider>
-      <Router>
-        <div className="App">
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Dashboard />}></Route>
-          </Routes>
-        </div>
-      </Router>
+      <div className="App">
+        <Navbar />
+        <Dashboard />
+      </div>
     </RickMortyProvider>
   );
 }

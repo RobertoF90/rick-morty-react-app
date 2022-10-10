@@ -1,6 +1,6 @@
 import React from 'react';
-import CharacterSearch from './characters/CharacterSearch';
-import Bookmark from './layout/Bookmark';
+import CharacterSearch from '../characters/CharacterSearch';
+import Bookmark from '../bookmarks/Bookmark';
 
 function Navbar() {
   return (

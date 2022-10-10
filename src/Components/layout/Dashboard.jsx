@@ -1,6 +1,6 @@
 import React from 'react';
-import Characters from './characters/CharacterResults';
-import Pagination from './layout/Pagination';
+import Characters from '../characters/CharacterResults';
+import Pagination from './Pagination';
 
 function Dashboard() {
   return (

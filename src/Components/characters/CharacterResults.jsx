@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useContext } from 'react';
 import CharacterItem from './CharacterItem';
-import CharacterModal from '../CharacterModal';
+import CharacterModal from './CharacterModal';
 import RickMortyContext from '../../context/RickMortyContext';
 
 import Modal from 'react-modal';
