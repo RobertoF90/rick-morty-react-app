@@ -13,9 +13,9 @@
     font-size: 42.5%;
   }
 
-  .search-input {
-    width: 50%;
-  }
+  /* .search-input {
+    width: 100%;
+  } */
 
   .characters {
     grid-template-columns: 1fr 1fr 1fr;

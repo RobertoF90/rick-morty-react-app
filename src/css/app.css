@@ -33,12 +33,25 @@ body {
 .navbar {
   margin: 2rem;
 
-  display: flex;
+  /* display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 2rem; */
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  column-gap: 2rem;
+}
+
+.navbar form {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .search-input {
+  width: 100%;
   padding: 0.5rem 1rem;
 
   border: none;
@@ -48,8 +61,9 @@ body {
 }
 
 .btn--search {
-  position: relative;
-  right: 10%;
+  position: absolute;
+  top: 0;
+  right: -5%;
 
   background: #edcd62;
 }
@@ -166,8 +180,10 @@ body {
 /* PAGINATION */
 
 .pagination {
+  margin-top: 2rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 2rem;
 
   font-size: 1.4rem;

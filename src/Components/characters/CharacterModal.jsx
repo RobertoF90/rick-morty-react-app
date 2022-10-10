@@ -53,7 +53,7 @@ function CharacterModal() {
                     setBookmark(characterDetail.id);
                   }}
                 >
-                  {bookmarks.includes(characterDetail) ? (
+                  {bookmarks.some((b) => b.id === characterDetail.id) ? (
                     <p>REMOVE BOOKMARK</p>
                   ) : (
                     <p>ADD BOOKMARK </p>

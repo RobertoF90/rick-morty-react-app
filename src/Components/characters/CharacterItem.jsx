@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 function CharacterItem({ character: { name, image }, handleDetail }) {
   return (
@@ -11,9 +10,5 @@ function CharacterItem({ character: { name, image }, handleDetail }) {
     </div>
   );
 }
-
-CharacterItem.propTypes = {
-  character: PropTypes.object.isRequired,
-};
 
 export default CharacterItem;

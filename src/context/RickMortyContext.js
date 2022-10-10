@@ -15,12 +15,14 @@ export const RickMortyProvider = ({ children }) => {
     modalLoading: false,
     page: 1,
     modalIsOpen: false,
+    searchActive: false,
   };
 
   const [state, dispatch] = useReducer(rickMortyReducer, initialState);
 
   // MODAL
 
+  // Modal loading animation => while fetching data from API
   const setModalLoading = () => {
     dispatch({
       type: 'SET_MODAL_LOADING',
@@ -29,9 +31,13 @@ export const RickMortyProvider = ({ children }) => {
 
   // Open / Close modal
   const openModal = async (id) => {
+    // Find Character
     await setCharacterDetail(id);
+    // Activate animation
     setModalLoading();
+    // Find Episodes
     setEpisodes(id);
+    //  Activate modal window
     dispatch({
       type: 'SET_MODAL',
       payload: true,
@@ -45,15 +51,16 @@ export const RickMortyProvider = ({ children }) => {
     });
 
   const setEpisodes = async (id) => {
-    let episodes = [];
-
     const getCharacter = await fetch(`${API_URL}/character/${id}`);
-
     const character = await getCharacter.json();
 
+    // Create array from episode numbers
+    let episodes = [];
     character.episode.forEach((ep) => {
       return episodes.push(ep.split('/')[5]);
     });
+
+    // Turn array of episodes into string and use it in API call
     const response = await fetch(`${API_URL}/episode/${episodes.join(',')}`);
 
     const results = await response.json();
@@ -66,10 +73,17 @@ export const RickMortyProvider = ({ children }) => {
 
   // BOOKMARKS
 
-  const setBookmark = (id) => {
-    const [character] = filterCharacter(id);
+  // Make API call to find character by ID
+  const filterCharacter = async (id) => {
+    const response = await fetch(`${API_URL}/character/${id}`);
+    return await response.json();
+  };
 
-    if (state.bookmarks.includes(character)) {
+  const setBookmark = async (id) => {
+    const character = await filterCharacter(id);
+
+    // If character is already bookmarked, filter out the result and return new list
+    if (state.bookmarks.some((b) => b.id === character.id)) {
       dispatch({
         type: 'REMOVE_BOOKMARK',
         payload: state.bookmarks.filter(
@@ -77,6 +91,7 @@ export const RickMortyProvider = ({ children }) => {
         ),
       });
     } else {
+      // Add character to bookmark list
       dispatch({
         type: 'ADD_BOOKMARK',
         payload: [...state.bookmarks, character],
@@ -84,33 +99,53 @@ export const RickMortyProvider = ({ children }) => {
     }
   };
 
+  // Set Search active to show back button instead of pagination
+  const setSearchActive = () => {
+    dispatch({
+      type: 'SET_SEARCH_ACTIVE',
+    });
+  };
+
   // GET search results
   const fetchCharacters = async (text) => {
-    setLoading(true);
+    setLoading();
 
     let params = '';
 
+    // IF page above 1, use page as search param => API takes "?page="" as query param after "/character" endpoint
     if (state.page > 1) {
       params = new URLSearchParams({
         page: state.page,
       });
     }
 
+    // IF text is passed as argument, use "text" as search param
     if (text) {
       // Reset page to 0
       changePage(-state.page);
+      // Change pagination buttons to BACK
+      setSearchActive();
       params = new URLSearchParams({
         name: text,
       });
     }
 
     const response = await fetch(`${API_URL}/character/?${params}`);
-
     const { results } = await response.json();
-    dispatch({
-      type: 'GET_CHARACTERS',
-      payload: results,
-    });
+
+    if (results) {
+      dispatch({
+        type: 'GET_CHARACTERS',
+        payload: results,
+      });
+    } else {
+      // if no results, go back to page 1 and reset characters
+      dispatch({
+        type: 'CHANGE_PAGE',
+        payload: 1,
+      });
+      fetchCharacters();
+    }
   };
 
   const changePage = (value) => {
@@ -120,25 +155,16 @@ export const RickMortyProvider = ({ children }) => {
     });
   };
 
-  const filterCharacter = (id) => {
-    return state.characters.filter((character) => character.id === id);
-  };
-
+  // Uses same function as setBookmark for filtering character by ID
   const setCharacterDetail = async (id) => {
-    let [character] = filterCharacter(id);
-
-    if (!character) {
-      const response = await fetch(`${API_URL}/character/${id}`);
-
-      character = await response.json();
-    }
-
+    const character = await filterCharacter(id);
     dispatch({
       type: 'SET_CHARACTER_DETAIL',
       payload: character,
     });
   };
 
+  // Loading animation
   const setLoading = () => dispatch({ type: 'SET_LOADING' });
 
   return (
@@ -159,6 +185,7 @@ export const RickMortyProvider = ({ children }) => {
         setBookmark,
         page: state.page,
         changePage,
+        searchActive: state.searchActive,
       }}
     >
       {children}

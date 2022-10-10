@@ -42,6 +42,12 @@ const rickMortyReducer = (state, action) => {
         ...state,
         page: action.payload,
         loading: false,
+        searchActive: false,
+      };
+    case 'SET_SEARCH_ACTIVE':
+      return {
+        ...state,
+        searchActive: true,
       };
     case 'SET_LOADING':
       return {

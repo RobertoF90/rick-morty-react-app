@@ -5,8 +5,8 @@ import CharacterItem from '../characters/CharacterItem';
 import CharacterModal from '../characters/CharacterModal';
 
 function Bookmark() {
-  const [showBookmarks, setShowBookmarks] = useState(false);
   const { bookmarks, openModal } = useContext(RickMortyContext);
+  const [showBookmarks, setShowBookmarks] = useState(false);
 
   return (
     <div>
