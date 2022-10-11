@@ -130,6 +130,11 @@ export const RickMortyProvider = ({ children }) => {
       });
     }
 
+    // Prevent empty search input from resetting dashboard without pagination buttons
+    if (!text && state.page === 0) {
+      changePage(1);
+    }
+
     const response = await fetch(`${API_URL}/character/?${params}`);
     const { results } = await response.json();
 
